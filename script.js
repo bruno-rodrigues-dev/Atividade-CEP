@@ -1,6 +1,5 @@
-
-let formulario = document.getElementById("formulario");
 let cep = document.getElementById("cep");
+let mensagem = document.getElementById("mensagem");
 
 cep.addEventListener("input", function() {
     let valor = cep.value.replace(/\D/g, "").slice(0, 8);
@@ -12,14 +11,11 @@ cep.addEventListener("input", function() {
     cep.value = valor;
 });
 
-formulario.addEventListener("submit", async function(event) {
-    event.preventDefault();
-
+cep.addEventListener("blur", async function() {
     let numeroCep = cep.value.replace(/\D/g, "");
-    let mensagem = document.getElementById("mensagem");
 
     if (numeroCep.length != 8) {
-        mensagem.textContent = "Digite um CEP com 8 dígitos!";
+        mensagem.textContent = "Digite um CEP válido com 8 dígitos!";
         mensagem.style.color = "red";
         return;
     }
@@ -45,7 +41,7 @@ formulario.addEventListener("submit", async function(event) {
         document.getElementById("cidade").value = dados.localidade || "";
         document.getElementById("estado").value = dados.uf || "";
 
-        mensagem.textContent = "CEP encontrado com sucesso!";
+        mensagem.textContent = "Endereço encontrado!";
         mensagem.style.color = "green";
 
     } catch (erro) {
